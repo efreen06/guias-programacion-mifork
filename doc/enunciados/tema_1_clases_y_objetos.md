@@ -68,7 +68,30 @@ Por favor, escribe en impersonal las respuestas.
 
 ## 8. Ejemplo mínimo de clase en Java, que se llame Punto, con dos atributos, x e y, con un método que se llame `calculaDistanciaAOrigen`, que calcule la distancia a la posición 0,0. Por sencillez, los atributos deben tener visibilidad por defecto. Crea además un ejemplo de uso con una instancia y uso del método
 
-### Copiar el texto de la imagen
+### public class Punto {
+    // Atributos con visibilidad por defecto
+    int x;
+    int y;
+
+    // Constructor para inicializar los atributos
+    public Punto(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // Método para calcular la distancia al origen (0,0)
+    public double calculaDistanciaAOrigen() {
+        return Math.sqrt(x * x + y * y);
+    }
+
+    public static void main(String[] args) {
+        // Crear un objeto Punto
+        Punto p = new Punto(3, 4);
+        
+        // Calcular y mostrar la distancia al origen
+        System.out.println("Distancia al origen: " + p.calculaDistanciaAOrigen());
+    }
+}
 
 
 ## 9. ¿Cuál es el punto de entrada en un programa en Java? ¿Qué es `static` y para qué vale? ¿Sólo se emplea para ese método `main`? ¿Para qué se combina con `final`?
@@ -109,7 +132,38 @@ En resumen, this es común en muchos lenguajes, pero algunos usan self en su lug
 
 ## 13. Añade ahora otro nuevo método que se llame `distanciaA`, que reciba un `Punto` como parámetro y calcule la distancia entre `this` y el punto proporcionado
 
-### Copiar texto de la imagen
+### public class Punto {
+    // Atributos con visibilidad por defecto
+    int x;
+    int y;
+
+    // Constructor para inicializar los atributos
+    public Punto(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // Método para calcular la distancia al origen (0,0)
+    public double calculaDistanciaAOrigen() {
+        return Math.sqrt(x * x + y * y);
+    }
+
+    // Nuevo método que calcula la distancia entre este punto y otro
+    public double distanciaA(Punto otroPunto) {
+        int dx = this.x - otroPunto.x;
+        int dy = this.y - otroPunto.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public static void main(String[] args) {
+        // Crear dos objetos Punto
+        Punto p1 = new Punto(3, 4);
+        Punto p2 = new Punto(6, 8);
+
+        // Calcular y mostrar la distancia entre p1 y p2
+        System.out.println("Distancia entre p1 y p2: " + p1.distanciaA(p2));
+    }
+}
 
 
 ## 14. El paso del `Punto` como parámetro a un método, es **por copia** o **por referencia**, es decir, si se cambia el valor de algún atributo del punto pasado como parámetro, dichos cambios afectan al objeto fuera del método? ¿Qué ocurre si en vez de un `Punto`, se recibiese un entero (`int`) y dicho entero se modificase dentro de la función? 
@@ -155,4 +209,27 @@ o	Struct: En C no tiene herencia; en C++ puede tenerla, pero no se usa igual que
 
 ## 17. Quitemos un poco de magia a todo esto: ¿Como se podría “emular”, con `struct` en C, la clase `Punto`, con su función para calcular la distancia al origen? ¿Qué ha pasado con `this`?
 
-### Copiar texto de la imagen
+### #include <stdio.h>
+#include <math.h>
+
+// Definir el struct Punto
+typedef struct {
+    int x;
+    int y;
+} Punto;
+
+// Función que calcula la distancia al origen
+double calculaDistanciaAOrigen(Punto p) {
+    return sqrt(p.x * p.x + p.y * p.y);
+}
+
+int main() {
+    // Crear una instancia de Punto
+    Punto p1 = {3, 4};
+
+    // Calcular y mostrar la distancia al origen
+    printf("Distancia al origen: %.2f\n", calculaDistanciaAOrigen(p1));
+
+    return 0;
+}
+Desaparición de this: Como la función no es parte de una instancia, no existe el concepto de "yo mismo" (this). Para acceder a las coordenadas x e y, ahora debes usar el nombre que le diste al parámetro en la función (en este caso, p.x y p.y). 
